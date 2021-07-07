@@ -1,0 +1,78 @@
+{
+    "data": {
+        "members": [
+            {
+                "id": 1,
+                "name": "Shak",
+                "weapons": ["Kensa Splattershot", "Dualie Squelchers", "Neo Splash-o-matic", "Kensa .52 Gal", "N-ZAP '89"],
+                "social_media": [
+                    {
+                        "id": 1,
+                        "platform": "YouTube",
+                        "link": "https://www.youtube.com/5hak_"
+                    }
+                ],
+                "biography": "The name is Shak"
+            },
+            {
+                "id": 2,
+                "name": "Burstie",
+                "weapons": ["N-ZAP '85", "Splattershot Jr.", "H-3 Nozzlenose D", "Foil Squeezer", "Tenta Brella"]
+            },
+            {
+                "id": 3,
+                "name": "Kyo",
+                "weapons": ["Soda Slosher", "Slosher", "Tri-Slosher", "Tri-Slosher Nouveau", "Kensa Sloshing Machine", "Neo Splash-o-matic", "Kensa .52 Gal", "Kensa Rapid Blaster"],
+                "social media": [
+                    {
+                        "id": 1,
+                        "platform": "YouTube",
+                        "link": "https://www.youtube.com/KyochaNDxD"
+                    }
+                ],
+                "biography": "Kyo bwahahahaha"
+            },
+            {
+                "id": 4,
+                "name": "Biscuit",
+                "weapons": ["Nautilus 79", "Nautilus 47", "Foil Squeezer", "Custom Jet Squelcher", "Custom Explosher", "Bamboozler 14 Mk I", "Ballpoint Splatling Nouveau"]
+            }
+        ],
+        "tournaments": {
+            "series": [
+                {
+                   "id": 1,
+                   "name": "BnS" 
+                },
+                {
+                    "id": 2,
+                    "name": "GGG"
+                }
+            ],
+            "individual_tournaments": [
+                {
+                    "id": 1,
+                    "name": "BnS",
+                    "edition": "18th",
+                    "date": "Jan 4th 2018",
+                    "result": "1st",
+                    "data": {
+                        "weapons": [
+                            {
+                                "id": 1,
+                                "name": "Shak",
+                                "weapons": []
+                            },
+                            {
+                                "id": 2,
+                                "name": "Burstie",
+                                "weapons": []
+                            }
+                        ]
+                    }
+                }
+            ],
+            "weapons": []
+        }
+    }
+}
