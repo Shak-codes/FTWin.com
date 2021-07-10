@@ -1,0 +1,20 @@
+{
+  "name": "FTWin.com",
+  "version": "1.0.0",
+  "description": "Website for FTWin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shak-codes/FTWin.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shak-codes/FTWin.com/issues"
+  },
+  "homepage": "https://github.com/Shak-codes/FTWin.com#readme"
+}
