@@ -164,19 +164,6 @@
                     }
                 ],
                 "biography": "The name is Shak"
-            },
-            {
-                "id": 5,
-                "name": "Ice",
-                "current_weapons": [
-                    "Charger",
-                    "Splatling"
-                ],
-                "weapon_history": [
-                    "Charger"
-                ],
-                "social_media": [],
-                "biography": "I once left FTWin and lost out on 5000 dollars"
             }
         ],
         "tournaments": {

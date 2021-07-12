@@ -28,7 +28,7 @@ app.post("/members", (req, res) => {
     apiData.data.members.push(body);
     const data = JSON.stringify(apiData, null, 4);
 
-    fs.writeFileSync("../../data.json", data, err => {
+    fs.writeFileSync("../data.json", data, err => {
 
         // Check for error
         if (err) throw err;
