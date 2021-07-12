@@ -1,43 +1,46 @@
 function add_tournament() {
 
-    // Get tournament series name
+    // Prompts user for tournament series name
     let series_name = window.prompt("What is the name of the tournament series?\n");
 
-    // Get tournament edition
+    // Prompts user for tournament edition
     let edition = window.prompt("What is the edition of the tournament series?\n");
 
-    // Get tournament date
+    // Prompts user for tournament date
     let date = window.prompt("What was the date of the tournament\n");
 
-    // Get tournament placing
+    // Prompts user for tournament placing
     let result = window.prompt("What place did you get in the tournament?\n");
 
-    // Get tournament stage data (IE. Swiss stage then Top Cut)
+    // Prompts user for tournament stage data (IE. Swiss stage then Top Cut)
     let stages_length = parseInt(window.prompt("How many stages did the tournament have?\n"));
     let stages = [];
 
-    // number of sets per tournament stage
+    // the number of sets per tournament stage (ie. swiss, ladder, bracket, ect) (NOT actual maps)
     let sets_per_stage = [];
 
-    // name of each set in the tournament
+    // title of the match in the tournament (ie. Winner's Finals, Loser's Semis, if swiss: Round 3)
     let stage_round_names = [];
 
-    // number of games played for each set
+    // the number of games played in each set
     let stage_games = [];
 
     for (let stage = 0; stage < stages_length; stage++) {
 
-        // Get name of tournament stage
+        // Prompts user for name of tournament stage. The "current_stage" is the incremented value of the stage to account for the "stages" array starting at index 0. The user's response
+        // is then pushed onto the "stages", array.
         let current_stage = stage + 1;
         let name = window.prompt("What is the name of stage " + current_stage + " ?\n");
         stages.push(name);
 
+        // Prompts user for the number of sets in the specific stage. Pushes the response as an integer onto the "sets_per_stage" array.
         let sets = parseInt(window.prompt("How many sets were in the " + stages[stage] + " stage?\n"));
         sets_per_stage.push(sets);
 
+        // Initializes the index at 0
         let idx = 0;
 
-        // Get name of each set in the stage of the tournament
+        // Prompts user for the name of each set in the stage of the tournament.
         while (idx < sets_per_stage[stage]) {
             let prefix_count = window.prompt("How many rounds share the same prefix?(out of " + sets_per_stage[stage] - j + ")? \n");
             let prefix = window.prompt("What is the name of the prefix?\n");
