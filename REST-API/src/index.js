@@ -9,7 +9,7 @@ const { PORT = 3000 } = process.env;
 
 app.use(bodyParser.json());
 
-app.get("", (request, response) => response.send("Hello World"));
+app.get("", (request, response) => response.send("FTWin's REST API"));
 
 app.get("/members", (request, response) => {
     let members = apiData.data.members;
