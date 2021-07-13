@@ -1,82 +1,218 @@
-import cv2
-import pytesseract
-import numpy as np
+import json
 
-# get grayscale image
-def get_grayscale(image):
-    return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+data = open('../data.json')
+data = json.load(data)
 
-# noise removal
-def remove_noise(image):
-    return cv2.medianBlur(image,5)
- 
-#thresholding
-def thresholding(image):
-    return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+def add_tournament():
 
-#dilation
-def dilate(image):
-    kernel = np.ones((5,5),np.uint8)
-    return cv2.dilate(image, kernel, iterations = 1)
+    # Get tournament series name
+    series_name = "BBB"
+    #input("What is the name of the tournament series?\n")
+
+    # Analyze data file to check if series_name is present, if not,
+    # add to the tournament_series section in the data file
+
+    # Obtain a list of all series present in data file
+    all_series = data['data']['tournaments']['series']
+
+    # Set x to value 0
+    x = 0
+
+    # Check if series_name present in datafile, update x if so
+    for i in all_series:
+        if str(i["name"]) == series_name:
+            x = x + 1
     
-#erosion
-def erode(image):
-    kernel = np.ones((5,5),np.uint8)
-    return cv2.erode(image, kernel, iterations = 1)
+    # If x has not been updated, add series_name to data file
+    if x == 0:
+        new_series = {
+            "id": len(all_series) + 1,
+            "name": series_name
+        }
 
-#opening - erosion followed by dilation
-def opening(image):
-    kernel = np.ones((5,5),np.uint8)
-    return cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
+        data['data']['tournaments']['series'].append(new_series)
 
-#canny edge detection
-def canny(image):
-    return cv2.Canny(image, 100, 200)
+    # Get tournament edition
+    edition = 1
+    #input("What is the edition of the tournament series?\n")
 
-#template matching
-def match_template(image, template):
-    return cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED) 
+    # Get tournament date
+    date = "Jul 2 2021"
+    #input("What was the date of the tournament\n")
 
-img = cv2.imread('newtest2.png')
-gray = get_grayscale(img)
-thresh = thresholding(gray)
+    # Get tournament placing
+    result = "1st"
+    #input("What place did you get in the tournament?\n")
 
-# Adding custom options
-custom_config = r'--oem 3 --psm 6'
-text = pytesseract.image_to_string(thresh, config=custom_config)
+    # Get tournament stage data (IE. Swiss stage then Top Cut)
+    stages_length = 2
+    #int(input("How many stages did the tournament have?\n"))
 
-text.splitlines()
-text = text.split()
-newarr = []
-newarr2 = []
+    stages = []
 
-x = 0
+    # store number of sets per tournament stage
+    sets_per_stage = []
 
-def hasNumbers(str):
-    return any(char.isdigit() for char in str)
+    # store name of each set in the tournament
+    stage_round_names = []
 
-for i in text:
-    if x == 1:
-        newarr.append(i)
-    elif i == 'Home':
-        x = 2
-        print('hi')
-    elif i == 'level' or i == 'Level':
-        newarr.append(i)
-        x = 1
-    else:
-        continue
+    # store number of games played for each set
+    stage_games = []
 
-for i in newarr:
-    if '-' in i or "\\" in i or '>' in i or '<' in i:
-        continue
-    elif hasNumbers(i) == True:
-        newarr2.append(i)
-    elif 'Joe' not in i and 'KING' not in i and 'ice' not in i:
-        continue
-    else:
-        newarr2.append(i)
+    tournament = []
+
+    team_one = ""
+    team_two = ""
+
+    for stage in range(stages_length):
+
+        # Get name of tournament stage
+        current_stage = stage + 1
+        name = "swiss"
+        #input("What is the name of stage " + current_stage + " ?\n")
+        stages.append(name)
+
+        sets = 3
+        #int(input("How many sets were in the " + stages[stage] + " stage?\n"))
+        sets_per_stage.append(sets)
+
+        idx = 0
+
+        # Get name of each set in the stage of the tournament
+        while (idx < sets_per_stage[stage]):
+            round = idx + 1
+            round_name = "Swiss Round 1"#input("What was round " + str(round) + " called?\n")
+            stage_round_names.append(round_name)
+            idx = round
+
+        # Get number of games played for each set
+        for i in range (sets_per_stage[stage]):
+            game_count = 1#input("How many games did you play in " + str(stage_round_names[i]) + "?\n")
+            stage_games.append(game_count)
+
+        set = []
+        for i in range (sets_per_stage[stage]):
+            current_set = i + 1
+            game = []
+            set_weapons = []
+            for j in range(int(stage_games[i])):
+                game_id = j + 1
+                map = "Inkblot"
+                #input(stage_round_names[i] + " | Game " + str(game_id) + " Map name: ")
+                mode = "Turf War"
+                #input(stage_round_names[i] + " | Game " + str(game_id) + " Mode name: ")
+                team = []
+                game_weapons = []
+                for k in range(2):
+                    team_weapons = []
+                    team_id = k + 1
+                    team_name = "FTWin" + str(team_id)#input("Team name: ")
+
+                    if team_id == 1:
+                        team_one == team_name
+                    else:
+                        team_two == team_name
+
+                    game_result = "WIN"
+                    #input("Did " + str(team_name) + " win or lose?(ENTER WIN OR LOSS)")
+                    score = "78"
+                    #input(str(team_name) + " score")
+
+                    # Array to store all player data
+                    players = []
+
+                    for player in range(4):
+
+                        player_name = "Shak"#input("Player " + str(player) + " name: ")
+                        player_weapon = "KSHOT"#input(str(player_name) + "'s weapon: ")
+
+                        if (player_weapon not in team_weapons):
+                            team_weapons.append(player_weapon)
+                        if (player_weapon not in game_weapons):
+                            game_weapons.append(player_weapon)
+                        if (player_weapon not in set_weapons):
+                            set_weapons.append(player_weapon)
+
+                        player_paint = "1000"#input(str(player_name) + " paint: ")
+                        player_kills = "5"#input(str(player_name) + " kills(assists included): ")
+                        player_assists = "3"#input(str(player_name) + " assists: ")
+                        player_deaths = "0"#input(str(player_name) + " deaths: ")
+                        player_specials = "2"#input(str(player_name) + " deaths: ")
+
+                        player_data = {
+                            "id": player + 1,
+                            "name": player_name,
+                            "weapon": player_weapon,
+                            "paint": player_paint,
+                            "kills": player_kills,
+                            "assists": player_assists,
+                            "deaths": player_deaths,
+                            "specials": player_specials
+                        }
+
+                        players.append(player_data)
+
+                    team_data = {
+                        "id": team_id,
+                        "name": team_name,
+                        "result": game_result,
+                        "score": score,
+                        "players": players,
+                        "weapons": team_weapons
+                    }
+                    team.append(team_data)
+
+
+                player_data = {"team": team}
+
+                game_data = {
+                    "id": game_id,
+                    "map": map,
+                    "mode": mode,
+                    "player_data": player_data,
+                    "weapons": game_weapons
+                }
+
+                game.append(game_data)
+            
+            set_data = {
+                "id": current_set,
+                "name": stage_round_names[i],
+                "game_data": game,
+                "weapons": set_weapons
+            }
+
+            set.append(set_data)
+
+        tournament_data = {
+            "id": current_stage,
+            "name": name,
+            "set_data": set
+        }
+
+        tournament.append(tournament_data)
     
-    
+    bracket = {"tournament_stages": tournament}
 
-print(newarr2)
+    new_data = {
+        "bracket": bracket,
+        "weapons": 5
+        }
+        
+    individual_tournament = {
+        "id": len(data['data']['tournaments']['individual_tournaments']) + 1,
+        "name": series_name,
+        "edition": edition,
+        "date": date,
+        "result": result,
+        "data": new_data
+    }
+    
+    data['data']['tournaments']['individual_tournaments'].append(individual_tournament)
+
+    json_object = json.dumps(data, indent = 4)
+
+    with open("data.json", "w") as outfile:
+        outfile.write(json_object)
+    
+    print("Completed")

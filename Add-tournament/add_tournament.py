@@ -3,7 +3,6 @@ import json
 data = open('../data.json')
 data = json.load(data)
 
-print(len(data['data']['tournaments']['individual_tournaments']))
 
 def add_tournament():
 
