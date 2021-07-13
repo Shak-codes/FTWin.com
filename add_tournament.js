@@ -42,13 +42,10 @@ function add_tournament() {
 
         // Prompts user for the name of each set in the stage of the tournament.
         while (idx < sets_per_stage[stage]) {
-            let prefix_count = window.prompt("How many rounds share the same prefix?(out of " + sets_per_stage[stage] - j + ")? \n");
-            let prefix = window.prompt("What is the name of the prefix?\n");
-            for (let i = 0; i < prefix_count; i++) {
-                let round_name = prefix + " " + window.prompt("What round did you play?\n");
-                stage_round_names.push(round_name);
-                idx++;
-            }
+            let round = idx + 1;
+            let round_name = window.prompt("What was round " + round + " called?\n");
+            stage_round_names.push(round_name);
+            idx++;
         }
 
         // Get number of games played for each set
@@ -59,12 +56,13 @@ function add_tournament() {
 
         for (let i = 0; i < sets_per_stage[stage]; i++) {
             let current_stage = i + 1
-            let result = window.prompt("Set " + i + " result\n");
-            let score = window.prompt("Set score\n");
+            let result = window.prompt(stage_round_names[i] + " result(WIN or LOSS)\n");
+            let score = window.prompt(stage_round_names[i] + " set score(IE. 3-0)\n");
             for (let j = 0; j < stage_games[i]; j++) {
-                let map = window.prompt("Map name: ");
-                let mode = window.prompt("Mode name: ");
-                let score = window.prompt("Score: ");
+                let round = j + 1;
+                let map = window.prompt(stage_round_names[i] + " | Game " + j + " Map name: ");
+                let mode = window.prompt(stage_round_names[i] + " | Game " + j + " Mode name: ");
+                let score = window.prompt(stage_round_names[i] + " | Game " + j + " Score(IE. 98-64: Indicating you pushed to 2 and enemy pushed to 36)");
                 let team = [];
                 for (let k = 0; k < 2; k++) {
                     team_id = k + 1;
